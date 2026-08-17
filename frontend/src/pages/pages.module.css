@@ -1,0 +1,73 @@
+.center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.authCard {
+  max-width: 32rem;
+}
+
+.authTitle {
+  margin: 0 0 2rem;
+  font-size: 1.85rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1e1e1e;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form > button {
+  width: 100%;
+}
+
+.centerNote {
+  margin: 0;
+  text-align: center;
+}
+
+.inlineLink {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inlineLink:hover {
+  text-decoration: underline;
+}
+
+.muted {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.fileHead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.fileIcon {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  color: #1e1e1e;
+  flex-shrink: 0;
+}
+
+.fileName {
+  margin: 0;
+  font-weight: 600;
+  word-break: break-word;
+}

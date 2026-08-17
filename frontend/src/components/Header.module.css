@@ -1,0 +1,28 @@
+.header {
+  width: 100%;
+  background: transparent;
+}
+
+.inner {
+  min-height: var(--header-height);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.loginLink {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding: 0 1rem;
+  }
+}

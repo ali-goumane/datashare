@@ -1,0 +1,15 @@
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem 2.5rem 2.75rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+}

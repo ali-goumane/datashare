@@ -1,0 +1,1 @@
+export function Callout({ type = 'error', children }: { type?: 'error' | 'success' | 'info'; children: React.ReactNode }) { return <div className={`callout callout-${type}`} role="alert">{children}</div> }

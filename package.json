@@ -1,0 +1,5 @@
+{
+  "name": "datashare",
+  "private": true,
+  "scripts": { "dev:background": "node scripts/start-dev.js" }
+}

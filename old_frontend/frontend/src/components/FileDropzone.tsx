@@ -1,0 +1,8 @@
+import { useRef } from 'react'
+import { MAX_FILE_SIZE, FORBIDDEN_EXTENSIONS } from '../constants'
+export function FileDropzone({ file, onChange, error }: { file: File | null; onChange: (file: File | null, error?: string) => void; error?: string }) {
+  const inputRef = useRef<HTMLInputElement>(null)
+  function choose(next: File | undefined) { if (!next) return; const extension = `.${next.name.split('.').pop()?.toLowerCase()}`; if (next.size > MAX_FILE_SIZE) return onChange(null, 'Le fichier ne doit pas dépasser 1 Go.'); if (FORBIDDEN_EXTENSIONS.includes(extension)) return onChange(null, 'Ce type de fichier est interdit.'); onChange(next) }
+  return <div className={`dropzone ${error ? 'dropzone-error' : ''}`} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); choose(event.dataTransfer.files[0]) }} onClick={() => inputRef.current?.click()} role="button" tabIndex={0} onKeyDown={(event) => event.key === 'Enter' && inputRef.current?.click()}><input ref={inputRef} type="file" hidden onChange={(event) => choose(event.target.files?.[0])} />{file ? <><strong>{file.name}</strong><span>{formatSize(file.size)} · Cliquez pour changer</span></> : <><span className="drop-icon">↑</span><strong>Déposez votre fichier ici</strong><span>ou cliquez pour parcourir · 1 Go maximum</span></>}{error && <small className="field-error">{error}</small>}</div>
+}
+function formatSize(size: number) { if (size < 1024) return `${size} B`; if (size < 1024 ** 2) return `${(size / 1024).toFixed(1)} KB`; if (size < 1024 ** 3) return `${(size / 1024 ** 2).toFixed(1)} MB`; return `${(size / 1024 ** 3).toFixed(1)} GB` }

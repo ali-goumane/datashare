@@ -1,0 +1,55 @@
+/** Design system DataShare — maquettes Figma (crème / orange / corail) */
+export const colors = {
+  txt: {
+    BLACK: '#1e1e1e',
+    MUTED: '#2c2c2c',
+    DISABLED: '#b3b3b3',
+    WHITE: '#ffffff',
+  },
+  bg: {
+    PRIMARY: '#f3eeea',
+    SECONDARY: '#ffffff',
+    DARKGREY: '#2c2c2c',
+    LIGHTBLUE: '#e2ecff',
+    CREAM: '#f3eeea',
+    CREAM_LIGHT: '#fff8f3',
+    TOPBAR: '#ffeee3',
+    LIGHTRED: '#ffe2e2',
+    DARKORANGE: 'rgba(226, 127, 41, 0.15)',
+    PEACH: '#ffc191',
+    OFFWHITE: '#f3eeea',
+    CORAL: '#e77a6e',
+    PEACH_TRANSPARENT: 'rgba(255, 193, 145, 0.16)',
+    WHITE: '#ffffff',
+    SUCCESS: '#e8f5e9',
+  },
+  border: {
+    DEFAULT: '#d1d5db',
+    STRONG: '#9ca3af',
+    FOCUS: '#e27f29',
+    ORANGE: 'rgba(215, 99, 11, 0.2)',
+    INFO: '#bfdbfe',
+    WARNING: '#e6cbb5',
+    ERROR: '#f14343',
+  },
+  accent: {
+    PRIMARY: '#e27f29',
+    PRIMARY_HOVER: '#ff812d',
+    PRIMARY_GLOW: 'rgba(226, 127, 41, 0.2)',
+    ACCENT: '#ff812d',
+    CORAL: '#e77a6e',
+    PEACH: '#ffb88c',
+    INFO: '#1e3a8a',
+    WARNING: '#aa642b',
+    ERROR: '#c62020',
+    SUCCESS: '#10b981',
+  },
+  gradient: {
+    CORAL: 'linear-gradient(174.89deg, #ffb88c 2.29%, #de6262 97.72%)',
+    SIDEBAR: 'linear-gradient(180deg, #ffb88c 0%, #de8262 50%, #e27f29 100%)',
+    BUTTON: '#e27f29',
+    LOGO: '#1e1e1e',
+  },
+} as const
+
+export type Colors = typeof colors

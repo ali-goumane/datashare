@@ -1,0 +1,19 @@
+import { useState } from 'react'
+import { Card } from '../components/Card'
+import { Button } from '../components/Button'
+import { Input } from '../components/Input'
+import { Select } from '../components/Select'
+import { FileDropzone } from '../components/FileDropzone'
+import { Callout } from '../components/Callout'
+import { api } from '../services/api'
+import { useAuth } from '../hooks/useAuth'
+import type { FileInfo } from '../types'
+
+export function UploadPage() {
+  const { token } = useAuth(); const [file, setFile] = useState<File | null>(null); const [fileError, setFileError] = useState(''); const [password, setPassword] = useState(''); const [expireDays, setExpireDays] = useState('7'); const [tags, setTags] = useState(''); const [result, setResult] = useState<FileInfo | null>(null); const [error, setError] = useState(''); const [loading, setLoading] = useState(false); const link = result ? `${window.location.origin}/download/${result.token}` : ''
+  async function submit(event: React.FormEvent) { event.preventDefault(); setError(''); if (!file) return setFileError('Choisissez un fichier à partager.'); if (password && password.length < 6) return setError('Le mot de passe doit contenir au moins 6 caractères.'); setLoading(true); const data = new FormData(); data.append('file', file); if (password) data.append('password', password); data.append('expireDays', expireDays); if (tags) data.append('tags', tags); try { setResult(await api.upload(data)) } catch (reason) { setError(reason instanceof Error ? reason.message : 'Téléversement impossible') } finally { setLoading(false) } }
+  function reset() { setResult(null); setFile(null); setPassword(''); setTags('') }
+  if (result) return <div className="narrow-page"><div className="eyebrow">Fichier partagé</div><h1>Votre lien est prêt !</h1><Card className="success-card"><div className="success-icon">✓</div><h2>{result.name}</h2><p>Le lien est valable jusqu’au {formatDate(result.expireAt)}</p><div className="link-box">{link}<Button type="button" onClick={() => navigator.clipboard.writeText(link)}>Copier</Button></div><Button type="button" variant="secondary" onClick={reset}>Partager un autre fichier</Button></Card></div>
+  return <div className="upload-page"><div className="hero-copy"><div className="eyebrow">Partage simple et sécurisé</div><h1>Partagez vos fichiers<br /><em>en toute simplicité.</em></h1><p>Un lien, quelques secondes, et vos fichiers sont prêts à être partagés.</p></div><Card className="upload-card"><form onSubmit={submit}><FileDropzone file={file} onChange={(next, message) => { setFile(next); setFileError(message || '') }} error={fileError} /><div className="form-grid"><Input id="password" label="Mot de passe (optionnel)" type="password" minLength={6} placeholder="6 caractères minimum" value={password} onChange={(event) => setPassword(event.target.value)} /><Select id="expire" label="Durée de validité" value={expireDays} onChange={(event) => setExpireDays(event.target.value)}>{[1, 2, 3, 4, 5, 6, 7].map((day) => <option key={day} value={day}>{day} jour{day > 1 ? 's' : ''}</option>)}</Select></div><Input id="tags" label="Tags (optionnel)" placeholder="projet, équipe, important" value={tags} onChange={(event) => setTags(event.target.value)} />{error && <Callout>{error}</Callout>}<Button type="submit" disabled={loading}>{loading ? 'Téléversement…' : 'Téléverser le fichier'} <span>→</span></Button></form><p className="privacy-note">🔒 Vos fichiers sont supprimés automatiquement après expiration.</p></Card>{!token && <p className="under-card">Vous avez un compte ? <a href="/login">Connectez-vous</a> pour retrouver vos partages.</p>}</div>
+}
+function formatDate(value?: string) { return value ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(value)) : '7 jours' }
